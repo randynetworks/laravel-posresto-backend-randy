@@ -20,5 +20,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'superadmin@test.dev',
             'password' => \Hash::make('12345678')
         ]);
+
+        $this->call([
+            CategorySeeder::class,
+            ProductSeeder::class
+        ]);
     }
 }

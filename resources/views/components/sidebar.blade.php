@@ -10,6 +10,8 @@
             <li class="menu-header">Dashboard</li>
             <x-nav-item route="home" icon="fas fa-fire" label="Dashboard" />
             <x-nav-item route="users.index" icon="fas fa-user" label="Users" />
+            <x-nav-item route="categories.index" icon="fas fa-list-alt" label="Categories" />
+            <x-nav-item route="products.index" icon="fas fa-bacon" label="Products" />
         </ul>
     </aside>
 </div>
