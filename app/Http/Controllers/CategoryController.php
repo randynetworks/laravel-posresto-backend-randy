@@ -40,20 +40,7 @@ class CategoryController extends Controller
             'image' => 'required'
         ]);
 
-        $category = new Category;
-        $category->name = $request->name;
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $uuid = Str::uuid()->toString(); // Generate UUID
-            $extension = $file->getClientOriginalExtension();
-            $filename = $uuid . '.' . $extension;
-
-            $file->storeAs('public/uploads', $filename);
-            $category->image = $filename;
-        }
-
-        $category->save();
+        $this->saveToDatabase($request, new Category);
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully');
     }
@@ -84,19 +71,8 @@ class CategoryController extends Controller
             'image' => 'required'
         ]);
 
-        $category->name = $request->name;
+        $this->saveToDatabase($request, $category);
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $uuid = Str::uuid()->toString(); // Generate UUID
-            $extension = $file->getClientOriginalExtension();
-            $filename = $uuid . '.' . $extension;
-
-            $file->storeAs('public/uploads', $filename);
-            $category->image = $filename;
-        }
-
-        $category->save();
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
@@ -110,5 +86,21 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
+    }
+
+    private function saveToDatabase(Request $request, Category $category) {
+        $category->name = $request->name;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $uuid = Str::uuid()->toString(); // Generate UUID
+            $extension = $file->getClientOriginalExtension();
+            $filename = $uuid . '.' . $extension;
+
+            $file->storeAs('public/uploads', $filename);
+            $category->image = $filename;
+        }
+
+        $category->save();
     }
 }

@@ -11,14 +11,14 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Categories</h1>
+                <h1>Products</h1>
                 <div class="section-header-button">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('products.create') }}" class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Categories</a></div>
-                    <div class="breadcrumb-item">All Categories</div>
+                    <div class="breadcrumb-item"><a href="#">Products</a></div>
+                    <div class="breadcrumb-item">All Products</div>
                 </div>
             </div>
             <div class="section-body">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('categories.index') }}">
+                                    <form method="GET" action="{{ route('products.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search" name="name">
                                             <div class="input-group-append">
@@ -52,24 +52,35 @@
                                         <tr>
 
                                             <th>Name</th>
+                                            <th>Image</th>
+                                            <th>category</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Status</th>
+                                            <th>Favorite</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($categories as $category)
+                                        @foreach ($products as $product)
                                             <tr>
 
-                                                <td>{{ $category->name }}
-                                                </td>
-                                                <td>{{ $category->created_at }}</td>
+                                                <td>{{ $product->name }}</td>
+                                                <td><img class="p-3" src="{{ asset('storage/uploads/'. $product->image) }}" alt="{{ $product->image }}" width="100"></td>
+                                                <td>{{ $product->category->name }}</td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{{ $product->stock }}</td>
+                                                <td>{{ $product->status ? 'Enabled' : 'Disabled' }}</td>
+                                                <td>{{ $product->favorite ? 'Yes' : 'No' }}</td>
+                                                <td>{{ $product->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('categories.edit', $category->id) }}'
+                                                        <a href='{{ route('products.edit', $product->id) }}'
                                                            class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('categories.destroy', $category->id) }}"
+                                                        <form action="{{ route('products.destroy', $product->id) }}"
                                                               method="POST"
                                                               class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE"/>
@@ -89,7 +100,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $categories->withQueryString()->links() }}
+                                    {{ $products->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>
