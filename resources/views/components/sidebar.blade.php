@@ -8,10 +8,8 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            </li>
+            <x-nav-item route="home" icon="fas fa-fire" label="Dashboard" />
+            <x-nav-item route="users.index" icon="fas fa-user" label="Users" />
         </ul>
     </aside>
 </div>
